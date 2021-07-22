@@ -8,3 +8,13 @@
     align-items: center;
     font-family: 'Josefin' sans-serif;
 }
+
+.topLeft, .topRight {
+    flex: 3;
+    background: red;
+}
+
+.topCenter {
+    flex: 6;
+    background: blue;
+}
