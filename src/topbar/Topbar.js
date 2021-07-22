@@ -3,7 +3,9 @@ import './topbar.css'
 const Topbar = () => {
     return (
         <div className="top">
-            topbar
+        <div className="topLeft">L</div>
+        <div className="topCenter">C</div>
+        <div className="topRight">R</div>
         </div>
     )
 }
