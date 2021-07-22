@@ -1,10 +1,12 @@
+import { DataProvider } from "./DataProvider";
+import Home from "./Home";
 
 
 function App() {
   return (
-    <div className="App">
-     hello
-    </div>
+    <DataProvider>
+     <Home />
+    </DataProvider>
   );
 }
 
