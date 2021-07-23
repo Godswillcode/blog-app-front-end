@@ -1,9 +1,9 @@
-import React from 'react'
+import './singlePost.css'
 
 const singlePost = () => {
     return (
-        <div>
-            single Post
+        <div className="singlePost">
+            single  Post
         </div>
     )
 }
