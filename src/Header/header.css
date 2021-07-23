@@ -9,3 +9,9 @@
     font-family: "Lora", serif;
     color: #444;
   }
+
+  .headerTitleSm {
+    position: absolute;
+    top: 18%;
+    font-size: 20px;
+  }
