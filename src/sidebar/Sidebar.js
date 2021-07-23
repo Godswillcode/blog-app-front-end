@@ -14,6 +14,13 @@ const Sidebar = () => {
           amet ex esse.Sunt eu ut nostrud id quis proident.
         </p>
       </div>
+
+      <div className="sidebarItem">
+      <span className="sidebarTitle">CATEGORIES</span>
+      <ul className="sidebarList">
+          <li className="sidebarListItem">Life</li>
+      </ul>
+      </div>
     </div>
   );
 };
