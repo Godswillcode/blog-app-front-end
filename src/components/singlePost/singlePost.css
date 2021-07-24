@@ -30,3 +30,11 @@
     margin-left: 10px;
     cursor: pointer;
   }
+
+  .singlePostIcon:first-child {
+    color: teal;
+  }
+  .singlePostIcon:last-child {
+    color: tomato;
+  }
+  
