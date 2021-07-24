@@ -1,9 +1,9 @@
-import './write.css'
+import "./write.css";
 
 const Write = () => {
-    return (
-        <div className="write">
-           <form className="writeForm">
+  return (
+    <div className="write">
+      <form className="writeForm">
         <div className="writeFormGroup">
           <label htmlFor="fileInput">
             <i className="writeIcon fas fa-plus"></i>
@@ -28,8 +28,8 @@ const Write = () => {
           Publish
         </button>
       </form>
-        </div>
-    )
-}
+    </div>
+  );
+};
 
-export default Write
+export default Write;
