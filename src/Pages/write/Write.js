@@ -2,8 +2,8 @@ import './write.css'
 
 const Write = () => {
     return (
-        <div>
-            
+        <div className="write">
+            asd
         </div>
     )
 }
