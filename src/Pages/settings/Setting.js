@@ -2,8 +2,8 @@ import './setting.css'
 
 const Setting = () => {
     return (
-        <div>
-            
+        <div className="settings">
+            settings
         </div>
     )
 }
