@@ -24,4 +24,14 @@
     font-size: 12px;
     cursor: pointer;
   }
+
+  .settingsForm {
+    display: flex;
+    flex-direction: column;
+  }
   
+  .settingsPP {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    m
