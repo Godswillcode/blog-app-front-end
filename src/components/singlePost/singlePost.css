@@ -13,3 +13,10 @@
     border-radius: 5px;
     object-fit: cover;
   }
+
+  .singlePostTitle {
+    text-align: center;
+    margin: 10px;
+    font-size: 28px;
+    font-family: "Lora", sans-serif;
+  }
