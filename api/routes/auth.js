@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const User = require("../models/User");
+const bcrypt = require("bcrypt");
 
-// REGISTER
+//REGISTER
 router.post("/register", async (req, res) => {
   try {
     // HASH PASSWORD
@@ -20,5 +21,23 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// LOGIN
+router.post("/login", async (req, res) => {
+  try {
+    // FIND USER
+    const user = await User.findOne({ username: req.body.username });
+    !user && res.status(400).json("Invalid Username!");
+
+    // VALIDATE PASSWORD
+    const validate = await bcrypt.compare(req.body.password, user.password);
+    !validate && res.status(400).json("Invalid Username!");
+
+    // REMOVE PASSWORD FROM LOGIN DATABASE
+    const { password, ...others } = user._doc;
+    res.status(200).json(others);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;
