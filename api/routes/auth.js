@@ -1,43 +1,44 @@
 const router = require("express").Router();
-const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const User = require("../models/User");
 
-//REGISTER
+// REGISTER
 router.post("/register", async (req, res) => {
+  const { username, email, password, profilePic } = req.body;
   try {
-    // HASH PASSWORD
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    const hashPassword = await bcrypt.hash(password, salt);
     const newUser = new User({
-      username: req.body.username,
-      email: req.body.email,
-      password: hashedPassword,
+      username: username,
+      email: email,
+      password: hashPassword,
+      profilePic: profilePic,
     });
 
     const user = await newUser.save();
+
     res.status(200).json(user);
-  } catch (err) {
-    res.status(500).json(err);
+  } catch (error) {
+    res.status(500).json(error);
   }
 });
 
-// LOGIN
 router.post("/login", async (req, res) => {
+  const { username } = req.body;
+
   try {
-    // FIND USER
-    const user = await User.findOne({ username: req.body.username });
-    !user && res.status(400).json("Invalid Username!");
+    const user = await User.findOne({ username });
+    !user && res.status(400).json("password or username is incorrect");
+    const validated = await bcrypt.compare(req.body.password, user.password);
+    !validated && res.status(400).json("password or username is incorrect");
 
-    // VALIDATE PASSWORD
-    const validate = await bcrypt.compare(req.body.password, user.password);
-    !validate && res.status(400).json("Invalid Username!");
-
-    // REMOVE PASSWORD FROM LOGIN DATABASE
     const { password, ...others } = user._doc;
+
     res.status(200).json(others);
-  } catch (err) {
-    res.status(500).json(err);
+  } catch (error) {
+    res.status(500).json(error);
   }
+  console.log(req.body);
 });
 
 module.exports = router;
