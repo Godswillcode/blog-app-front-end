@@ -1,45 +1,48 @@
 const express = require("express");
-const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-const app = express();
-const authRoute = require("./routes/auth");
-const userRoute = require("./routes/users");
-const postRoute = require("./routes/posts");
-const categoryRoute = require("./routes/categories");
+const authRoutes = require("./routes/auth")
+const userRoutes = require("./routes/users");
+const postRoutes = require("./routes/posts");
+const categoryRoutes = require("./routes/categories");
 const multer = require("multer");
+ require("dotenv").config();
 
-dotenv.config();
+
+
+const app = express();
+const PORT = process.env.Port || 5000;
+
+mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true,
+     useUnifiedTopology: true,
+     useFindAndModify: false,
+     useCreateIndex:true})
+     .then(console.log("database connected"))
+     .catch(err => console.log("err",err));
+
+
+     const storage = multer.diskStorage({
+         destination:(req,file,cb) => {
+             cb(null,"images")
+         },
+         filename:(req,file,cb) => {
+             cb(null,req.body.name)
+         }
+     });
+
+
+     const upload = multer({storage:storage});
+
+     app.post("/api/upload",upload.single("file"),(req,res) => {
+         res.status(200).json("File has been uploaded")
+     });
+
+// middlewares
 app.use(express.json());
+app.use("/api/auth",authRoutes);
+app.use("/api/users",userRoutes);
+app.use("/api/posts", postRoutes);
+app.use("/api/categories", categoryRoutes);
 
-mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-  })
-  .then(console.log("DATABASE CONNECTED"))
-  .catch((err) => console.log(err));
-
-// IMAGE UPLOAD
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "images");
-  },
-  filename: (req, file, cb) => {
-    cb(null, req.body.name);
-  },
-});
-
-const upload = multer({ storage: storage });
-app.post("/api/upload", upload.single("file"), (req, res) => {
-  res.status(200).json("File uploaded successfully");
-});
-
-app.use("/api/auth", authRoute);
-app.use("/api/users", userRoute);
-app.use("/api/posts", postRoute);
-app.use("/api/categories", categoryRoute);
-
-app.listen("5000", () => {
-  console.log("Backend is running on port 5000...");
-});
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+})
