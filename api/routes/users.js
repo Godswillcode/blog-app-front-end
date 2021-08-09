@@ -65,6 +65,8 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+
+
 router.get("/", async (req, res) => {
   try {
     const { password, ...others } = await User.find();
