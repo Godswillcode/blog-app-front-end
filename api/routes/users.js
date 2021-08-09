@@ -13,7 +13,7 @@ router.put("/:id", async (req, res) => {
     }
 
     try {
-      // const updateUser = await User.findByIdAndUpdate(
+      const updateUser = await User.findByIdAndUpdate(
         req.params.id,
         {
           $set: req.body,
